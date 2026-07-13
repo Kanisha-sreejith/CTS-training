@@ -3,12 +3,12 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 import jwt
 
-app = FastAPI(title="Student Portal JWT Auth")
+app = FastAPI(title="JWT Auth Example")
 security = HTTPBearer()
-SECRET_KEY = "student-secret"
+SECRET_KEY = "demo-secret"
 ALGORITHM = "HS256"
 
-users = {"admin": "password123", "student": "student123"}
+users = {"admin": "password123"}
 tokens = {}
 
 
@@ -27,14 +27,6 @@ def login(data: LoginRequest):
     return {"access_token": token, "token_type": "bearer"}
 
 
-@app.post("/logout")
-def logout(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    token = credentials.credentials
-    username = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])["sub"]
-    tokens.pop(username, None)
-    return {"message": "Logged out from student portal"}
-
-
 @app.get("/dashboard")
 def dashboard(credentials: HTTPAuthorizationCredentials = Depends(security)):
     token = credentials.credentials
@@ -46,4 +38,4 @@ def dashboard(credentials: HTTPAuthorizationCredentials = Depends(security)):
     if tokens.get(payload["sub"]) != token:
         raise HTTPException(status_code=401, detail="Token revoked")
 
-    return {"message": f"Welcome {payload['sub']} to your student dashboard"}
+    return {"message": f"Welcome {payload['sub']}"}
