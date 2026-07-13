@@ -1,35 +1,37 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
-from .models import Item
+from .models import Student
 
 
 @require_http_methods(["GET", "POST"])
-def item_list(request):
+def student_list(request):
     if request.method == "POST":
-        name = request.POST.get("name", "")
-        quantity = request.POST.get("quantity", 1)
-        item = Item.objects.create(name=name, quantity=quantity)
-        return JsonResponse({"id": item.id, "name": item.name, "quantity": item.quantity})
+        name = request.POST.get("name", "Unknown")
+        course = request.POST.get("course", "Python")
+        grade = request.POST.get("grade", "A")
+        student = Student.objects.create(name=name, course=course, grade=grade)
+        return JsonResponse({"id": student.id, "name": student.name, "course": student.course, "grade": student.grade})
 
-    items = list(Item.objects.values("id", "name", "quantity"))
-    return JsonResponse(items, safe=False)
+    students = list(Student.objects.values("id", "name", "course", "grade"))
+    return JsonResponse(students, safe=False)
 
 
 @require_http_methods(["GET", "PUT", "DELETE"])
-def item_detail(request, item_id):
-    item = Item.objects.filter(id=item_id).first()
-    if not item:
-        return JsonResponse({"error": "Not found"}, status=404)
+def student_detail(request, student_id):
+    student = Student.objects.filter(id=student_id).first()
+    if not student:
+        return JsonResponse({"error": "Student not found"}, status=404)
 
     if request.method == "PUT":
-        item.name = request.POST.get("name", item.name)
-        item.quantity = request.POST.get("quantity", item.quantity)
-        item.save()
-        return JsonResponse({"id": item.id, "name": item.name, "quantity": item.quantity})
+        student.name = request.POST.get("name", student.name)
+        student.course = request.POST.get("course", student.course)
+        student.grade = request.POST.get("grade", student.grade)
+        student.save()
+        return JsonResponse({"id": student.id, "name": student.name, "course": student.course, "grade": student.grade})
 
     if request.method == "DELETE":
-        item.delete()
-        return JsonResponse({"message": "Deleted"})
+        student.delete()
+        return JsonResponse({"message": "Student deleted"})
 
-    return JsonResponse({"id": item.id, "name": item.name, "quantity": item.quantity})
+    return JsonResponse({"id": student.id, "name": student.name, "course": student.course, "grade": student.grade})
