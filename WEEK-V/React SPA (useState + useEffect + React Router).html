@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Activity Tracker</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.min.js"></script>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f6f9fc; }
+      nav { background: #0d47a1; padding: 15px; color: white; }
+      nav a { color: white; margin-right: 15px; text-decoration: none; }
+      .card { background: white; padding: 20px; margin: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+      button { padding: 8px 12px; border: none; background: #1976d2; color: white; border-radius: 4px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { useState, useEffect } = React;
+      const { BrowserRouter, Routes, Route, Link } = ReactRouterDOM;
+
+      function Home() {
+        const [taskCount, setTaskCount] = useState(0);
+
+        useEffect(() => {
+          document.title = `Task Reminder: ${taskCount}`;
+        }, [taskCount]);
+
+        return (
+          <div className="card">
+            <h2>Daily Study Planner</h2>
+            <p>Complete your assigned tasks for the day.</p>
+            <button onClick={() => setTaskCount(taskCount + 1)}>Mark Task Done</button>
+            <p>Completed tasks: {taskCount}</p>
+          </div>
+        );
+      }
+
+      function About() {
+        return (
+          <div className="card">
+            <h2>About This App</h2>
+            <p>This app helps students manage learning goals and reminders for each week.</p>
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <BrowserRouter>
+            <nav>
+              <Link to="/">Home</Link>
+              <Link to="/about">About</Link>
+            </nav>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </BrowserRouter>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+  </body>
+</html>

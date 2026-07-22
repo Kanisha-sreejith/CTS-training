@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Training Center Dashboard</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+      body { background: #f5f7fb; color: #222; }
+      header { background: linear-gradient(135deg, #1e88e5, #1565c0); color: white; padding: 24px; text-align: center; }
+      nav { display: flex; justify-content: center; gap: 20px; background: #0d47a1; padding: 14px; }
+      nav a { color: white; text-decoration: none; font-weight: bold; }
+      .container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 20px; }
+      .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+      footer { display: flex; justify-content: center; align-items: center; background: #0d47a1; color: white; padding: 20px; }
+      @media (max-width: 768px) {
+        .container { grid-template-columns: 1fr; }
+        nav { flex-direction: column; align-items: center; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Training Center Dashboard</h1>
+      <p>Browse sessions, labs, and mentor support.</p>
+    </header>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Sessions</a>
+      <a href="#">Resources</a>
+      <a href="#">Support</a>
+    </nav>
+
+    <div class="container">
+      <div class="card">
+        <h2>Live Session</h2>
+        <p>Interactive class on Python and frontend concepts.</p>
+      </div>
+      <div class="card">
+        <h2>Practice Lab</h2>
+        <p>Hands-on exercises with feedback from trainers.</p>
+      </div>
+      <div class="card">
+        <h2>Mentor Help</h2>
+        <p>Book a 1:1 support slot for project guidance.</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2026 CTS Training Portal</p>
+    </footer>
+  </body>
+</html>
