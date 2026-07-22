@@ -1,0 +1,28 @@
+# Create Repository
+git init
+
+# Create Feature Branch
+git checkout -b feature-login
+
+# Add Changes
+git add .
+git commit -m "Added Login Feature"
+
+# Push Branch
+git push origin feature-login
+
+# Create Pull Request (GitHub)
+
+# Merge Main into Feature
+git checkout main
+git pull origin main
+
+git checkout feature-login
+git merge main
+
+# Resolve Merge Conflict
+git add .
+git commit -m "Resolved Merge Conflict"
+
+# Push Updated Branch
+git push origin feature-login
